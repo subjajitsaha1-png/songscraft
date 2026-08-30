@@ -23,6 +23,7 @@ export type Database = {
           error_message: string | null
           id: string
           instrumental: boolean
+          language: string
           lyrics: string | null
           prompt: string
           provider_job_id: string | null
@@ -39,6 +40,7 @@ export type Database = {
           error_message?: string | null
           id?: string
           instrumental?: boolean
+          language?: string
           lyrics?: string | null
           prompt?: string
           provider_job_id?: string | null
@@ -55,6 +57,7 @@ export type Database = {
           error_message?: string | null
           id?: string
           instrumental?: boolean
+          language?: string
           lyrics?: string | null
           prompt?: string
           provider_job_id?: string | null

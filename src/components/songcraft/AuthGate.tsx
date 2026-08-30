@@ -42,7 +42,7 @@ export function AuthGate({
           </p>
           <h1 className="font-display text-2xl font-bold mb-1">Songcraft</h1>
           <p className="text-muted-foreground text-sm max-w-[26ch]">
-            Turn a prompt into a full song. Sign in to start creating.
+            Turn a prompt into a Bollywood, Punjabi, or regional Indian song. Sign in to start creating.
           </p>
         </div>
 

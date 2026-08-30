@@ -7,6 +7,7 @@ export interface Song {
   prompt: string;
   lyrics: string | null;
   style_tags: string[];
+  language: string;
   instrumental: boolean;
   duration_seconds: number | null;
   status: SongStatus;
@@ -22,6 +23,7 @@ export interface CreateSongInput {
   prompt: string;
   lyrics: string;
   styleTags: string[];
+  language: string;
   instrumental: boolean;
   durationSeconds: number;
 }

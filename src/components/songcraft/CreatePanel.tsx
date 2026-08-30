@@ -3,8 +3,23 @@ import { Sparkles, Wand2 } from "lucide-react";
 import type { CreateSongInput } from "@/types/song";
 
 const SUGGESTED_TAGS = [
-  "pop", "lo-fi", "hip hop", "acoustic", "cinematic", "synthwave",
-  "rock", "ballad", "edm", "jazz", "orchestral", "indie",
+  "Bollywood", "Punjabi pop", "Bhangra", "Indi-pop", "Sufi", "Qawwali",
+  "Ghazal", "Hindustani classical", "Carnatic", "Filmi retro", "Devotional", "Desi hip-hop",
+];
+
+const LANGUAGES = [
+  { value: "hindi", label: "Hindi" },
+  { value: "hinglish", label: "Hinglish" },
+  { value: "punjabi", label: "Punjabi" },
+  { value: "tamil", label: "Tamil" },
+  { value: "telugu", label: "Telugu" },
+  { value: "bengali", label: "Bengali" },
+  { value: "marathi", label: "Marathi" },
+  { value: "gujarati", label: "Gujarati" },
+  { value: "kannada", label: "Kannada" },
+  { value: "malayalam", label: "Malayalam" },
+  { value: "urdu", label: "Urdu" },
+  { value: "english", label: "English" },
 ];
 
 export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) => Promise<unknown> }) {
@@ -12,6 +27,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
   const [title, setTitle] = useState("");
   const [prompt, setPrompt] = useState("");
   const [lyrics, setLyrics] = useState("");
+  const [language, setLanguage] = useState("hindi");
   const [instrumental, setInstrumental] = useState(false);
   const [duration, setDuration] = useState(120);
   const [tags, setTags] = useState<string[]>([]);
@@ -34,6 +50,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
         prompt,
         lyrics: mode === "custom" ? lyrics : "",
         styleTags: tags,
+        language,
         instrumental,
         durationSeconds: duration,
       });
@@ -82,7 +99,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
       />
 
       <textarea
-        placeholder="Describe the vibe: e.g. upbeat summer pop song about road trips with friends"
+        placeholder="Describe the vibe: e.g. an upbeat Punjabi wedding anthem with dhol and energetic male vocals"
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
         rows={3}
@@ -91,7 +108,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
 
       {mode === "custom" && (
         <textarea
-          placeholder={"Write your own lyrics here...\n[Verse 1]\n...\n[Chorus]\n..."}
+          placeholder={"Write your own lyrics here (any script works)...\n[Verse 1]\n...\n[Chorus]\n..."}
           value={lyrics}
           onChange={(e) => setLyrics(e.target.value)}
           rows={6}
@@ -113,6 +130,27 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
             {tag}
           </button>
         ))}
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label className="flex items-center justify-between text-sm">
+          <span className="font-mono-ui text-xs text-muted-foreground">Language</span>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="field w-auto px-2 py-1 font-mono-ui"
+          >
+            {LANGUAGES.map((l) => (
+              <option key={l.value} value={l.value}>
+                {l.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="text-[11px] text-muted-foreground leading-snug">
+          Hindi, Hinglish, and regional-language lyrics are supported — vocal delivery can vary more
+          than for widely-trained languages, so a take or two may be worth regenerating.
+        </p>
       </div>
 
       <div className="flex items-center justify-between text-sm">

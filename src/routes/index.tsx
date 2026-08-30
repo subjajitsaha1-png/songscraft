@@ -16,12 +16,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Songcraft turns a prompt or your own lyrics into full songs, with a personal library and instant playback.",
+          "Songcraft turns a prompt or your own lyrics into full Bollywood, Punjabi, and regional Indian songs, with a personal library and instant playback.",
       },
-      { property: "og:title", content: "Songcraft — Turn ideas into songs" },
+      { property: "og:title", content: "Songcraft — AI music studio for Indian songs" },
       {
         property: "og:description",
-        content: "Describe a vibe, pick a style, and generate a song you can play and keep.",
+        content: "Describe a vibe in Hindi, Punjabi, or any Indian language, pick a style, and generate a song you can play and keep.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/og-image.png" },

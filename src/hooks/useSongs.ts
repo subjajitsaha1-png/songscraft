@@ -49,6 +49,7 @@ export function useSongs(userId: string | null) {
           prompt: input.prompt,
           lyrics: input.lyrics || null,
           style_tags: input.styleTags,
+          language: input.language,
           instrumental: input.instrumental,
           duration_seconds: input.durationSeconds,
           status: "pending",

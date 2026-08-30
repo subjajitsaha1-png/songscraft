@@ -80,16 +80,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Songcraft — AI music studio" },
+      { title: "Songcraft — AI music studio for Indian songs" },
       {
         name: "description",
-        content: "Turn a prompt or your own lyrics into a full song, with a personal library and instant playback.",
+        content: "Turn a prompt or your own lyrics into a full Bollywood, Punjabi, or regional Indian song, with a personal library and instant playback.",
       },
       { name: "theme-color", content: "#140f1e" },
-      { property: "og:title", content: "Songcraft — AI music studio" },
+      { property: "og:title", content: "Songcraft — AI music studio for Indian songs" },
       {
         property: "og:description",
-        content: "Turn a prompt or your own lyrics into a full song, with a personal library and instant playback.",
+        content: "Turn a prompt or your own lyrics into a full Bollywood, Punjabi, or regional Indian song, with a personal library and instant playback.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/og-image.png" },

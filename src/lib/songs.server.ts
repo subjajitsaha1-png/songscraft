@@ -1,8 +1,35 @@
 import type { Song } from "@/types/song";
 
-export function buildPrompt(song: Pick<Song, "prompt" | "style_tags" | "instrumental">) {
+const LANGUAGE_LABELS: Record<string, string> = {
+  hindi: "Hindi",
+  punjabi: "Punjabi",
+  tamil: "Tamil",
+  telugu: "Telugu",
+  bengali: "Bengali",
+  marathi: "Marathi",
+  gujarati: "Gujarati",
+  kannada: "Kannada",
+  malayalam: "Malayalam",
+  urdu: "Urdu",
+  "hinglish": "Hinglish (Hindi-English mix)",
+  english: "English",
+};
+
+export function buildPrompt(
+  song: Pick<Song, "prompt" | "style_tags" | "instrumental" | "language">,
+) {
   const tags = song.style_tags.join(", ");
-  const parts = [song.prompt.trim(), tags && `Style: ${tags}`, song.instrumental && "Instrumental only, no vocals"];
+  const language = LANGUAGE_LABELS[song.language] ?? song.language;
+  const parts = [
+    song.prompt.trim(),
+    tags && `Style: ${tags}`,
+    // ACE-Step reads language mainly from the lyrics script and this cue —
+    // spelling it out here measurably helps steer instrumentation and vocal
+    // delivery toward the requested Indian language/style even when the
+    // style tags alone wouldn't disambiguate it (e.g. "pop" in Tamil vs Hindi).
+    `Sung in ${language}`,
+    song.instrumental && "Instrumental only, no vocals",
+  ];
   return parts.filter(Boolean).join(". ");
 }
 
