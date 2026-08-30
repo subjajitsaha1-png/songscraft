@@ -1,6 +1,12 @@
 import { LogOut, Music2 } from "lucide-react";
 
-export function Header({ email, onSignOut }: { email?: string; onSignOut: () => void }) {
+export function Header({
+  email,
+  onSignOut,
+}: {
+  email?: string | undefined;
+  onSignOut: () => void;
+}) {
   return (
     <header className="flex items-center justify-between px-6 py-4 border-b border-border">
       <div className="flex items-center gap-2">
