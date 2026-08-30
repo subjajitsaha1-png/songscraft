@@ -1,24 +1,62 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/useAuth";
+import { useSongs } from "@/hooks/useSongs";
+import { AuthGate } from "@/components/songcraft/AuthGate";
+import { Header } from "@/components/songcraft/Header";
+import { CreatePanel } from "@/components/songcraft/CreatePanel";
+import { LibraryPanel } from "@/components/songcraft/LibraryPanel";
+import { PlaybackBar } from "@/components/songcraft/PlaybackBar";
+import type { Song } from "@/types/song";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Songcraft — Turn ideas into songs" },
+      {
+        name: "description",
+        content:
+          "Songcraft turns a prompt or your own lyrics into full songs, with a personal library and instant playback.",
+      },
+      { property: "og:title", content: "Songcraft — Turn ideas into songs" },
+      {
+        property: "og:description",
+        content: "Describe a vibe, pick a style, and generate a song you can play and keep.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const { user, ready, signIn, signUp, signInWithGoogle, signOut } = useAuth();
+  const { songs, loading, createSong, deleteSong } = useSongs(user?.id ?? null);
+  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+
+  if (!ready) return null;
+
+  if (!user) {
+    return <AuthGate onSignIn={signIn} onSignUp={signUp} onGoogle={signInWithGoogle} />;
+  }
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen flex flex-col">
+      <Header email={user.email ?? undefined} onSignOut={signOut} />
+
+      <main className="flex-1 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4 p-4 overflow-hidden">
+        <CreatePanel onCreate={createSong} />
+        <LibraryPanel
+          songs={songs}
+          loading={loading}
+          currentSongId={currentSong?.id ?? null}
+          onPlay={setCurrentSong}
+          onDelete={deleteSong}
+        />
+      </main>
+
+      <PlaybackBar song={currentSong} />
     </div>
   );
 }
