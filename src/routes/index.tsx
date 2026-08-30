@@ -24,7 +24,9 @@ export const Route = createFileRoute("/")({
         content: "Describe a vibe, pick a style, and generate a song you can play and keep.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
   }),
   component: Index,
@@ -42,10 +44,11 @@ function Index() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col">
+      <div className="bg-ambient" />
       <Header email={user.email ?? undefined} onSignOut={signOut} />
 
-      <main className="flex-1 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4 p-4 overflow-hidden">
+      <main className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-4 p-4 overflow-hidden">
         <CreatePanel onCreate={createSong} />
         <LibraryPanel
           songs={songs}

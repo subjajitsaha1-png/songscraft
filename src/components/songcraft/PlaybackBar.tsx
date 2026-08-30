@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play, Music2 } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Song } from "@/types/song";
+import { AppMark } from "./AppMark";
 
 export function PlaybackBar({ song }: { song: Song | null }) {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -31,8 +32,8 @@ export function PlaybackBar({ song }: { song: Song | null }) {
 
   if (!song) {
     return (
-      <div className="border-t border-border px-6 py-3 flex items-center gap-3 text-muted-foreground text-sm">
-        <Music2 size={16} />
+      <div className="relative z-10 border-t border-border px-6 py-3 flex items-center gap-3 text-muted-foreground text-sm">
+        <AppMark className="text-sm" />
         Nothing playing yet
       </div>
     );
@@ -46,7 +47,7 @@ export function PlaybackBar({ song }: { song: Song | null }) {
   };
 
   return (
-    <div className="border-t border-border px-6 py-3 flex items-center gap-4">
+    <div className="relative z-10 border-t border-border px-6 py-3 flex items-center gap-4">
       <audio
         ref={audioRef}
         src={src}
@@ -58,18 +59,21 @@ export function PlaybackBar({ song }: { song: Song | null }) {
       />
       <button
         onClick={toggle}
-        className="w-9 h-9 rounded-full bg-brand-gradient flex items-center justify-center shrink-0"
+        className="w-9 h-9 rounded-full bg-brand-gradient flex items-center justify-center shrink-0 transition-transform hover:scale-105 active:scale-95"
       >
         {playing ? (
-          <Pause size={14} className="text-primary-foreground" fill="currentColor" />
+          <Pause size={14} className="text-[#17111f]" fill="currentColor" />
         ) : (
-          <Play size={14} className="text-primary-foreground" fill="currentColor" />
+          <Play size={14} className="text-[#17111f]" fill="currentColor" />
         )}
       </button>
+
+      <AppMark live={playing} className="text-base shrink-0" />
+
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium truncate">{song.title}</p>
         <div className="w-full h-1 bg-secondary rounded-full mt-1.5 overflow-hidden">
-          <div className="h-full bg-brand-gradient" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-brand-gradient transition-[width]" style={{ width: `${progress}%` }} />
         </div>
       </div>
     </div>

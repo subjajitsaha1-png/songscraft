@@ -5,16 +5,20 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * ============================================================================
+ * Songcraft design system — "Midnight Studio"
+ * ============================================================================
+ * Palette: deep ink/plum background, warm amber + violet studio-light accents.
+ * Type: Space Grotesk (display), Inter (body), IBM Plex Mono (technical/status
+ * readouts — track status, durations — echoing a mixing console's meters).
+ * Signature element: the equalizer mark (see .eq-mark / <AppMark />), reused
+ * as the app icon, a loading state, and the playback visualizer.
  *
  * The @theme inline block maps CSS custom properties to Tailwind utility
  * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
  * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 1. Add the variable to :root (and .dark, kept identical here since the
+ *    product is dark-only by design)
  * 2. Register it in @theme inline as --color-<name>: var(--<name>)
  */
 
@@ -59,77 +63,147 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono-ui);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --radius: 0.85rem;
+
+  --background: #140f1e;
+  --foreground: #efe9fb;
+  --card: #1c1628;
+  --card-foreground: #efe9fb;
+  --popover: #1c1628;
+  --popover-foreground: #efe9fb;
+  --primary: #f2b354;
+  --primary-foreground: #1a1310;
+  --secondary: #241c36;
+  --secondary-foreground: #efe9fb;
+  --muted: #221a32;
+  --muted-foreground: #a99bc4;
+  --accent: #8b6cf2;
+  --accent-foreground: #ffffff;
+  --destructive: #f2637a;
+  --destructive-foreground: #1a1310;
+  --border: rgba(239, 233, 251, 0.1);
+  --input: rgba(239, 233, 251, 0.12);
+  --ring: #8b6cf2;
+  --chart-1: #f2b354;
+  --chart-2: #8b6cf2;
+  --chart-3: #6ee7c8;
+  --chart-4: #f2637a;
+  --chart-5: #6cb4f2;
+  --sidebar: #1c1628;
+  --sidebar-foreground: #efe9fb;
+  --sidebar-primary: #f2b354;
+  --sidebar-primary-foreground: #1a1310;
+  --sidebar-accent: #241c36;
+  --sidebar-accent-foreground: #efe9fb;
+  --sidebar-border: rgba(239, 233, 251, 0.1);
+  --sidebar-ring: #8b6cf2;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono-ui: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
+/* The product is dark-only today; .dark mirrors :root so any shadcn
+   component that reads .dark tokens still resolves to the same design. */
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: #140f1e;
+  --foreground: #efe9fb;
+  --card: #1c1628;
+  --card-foreground: #efe9fb;
+  --popover: #1c1628;
+  --popover-foreground: #efe9fb;
+  --primary: #f2b354;
+  --primary-foreground: #1a1310;
+  --secondary: #241c36;
+  --secondary-foreground: #efe9fb;
+  --muted: #221a32;
+  --muted-foreground: #a99bc4;
+  --accent: #8b6cf2;
+  --accent-foreground: #ffffff;
+  --destructive: #f2637a;
+  --destructive-foreground: #1a1310;
+  --border: rgba(239, 233, 251, 0.1);
+  --input: rgba(239, 233, 251, 0.12);
+  --ring: #8b6cf2;
+  --chart-1: #f2b354;
+  --chart-2: #8b6cf2;
+  --chart-3: #6ee7c8;
+  --chart-4: #f2637a;
+  --chart-5: #6cb4f2;
+  --sidebar: #1c1628;
+  --sidebar-foreground: #efe9fb;
+  --sidebar-primary: #f2b354;
+  --sidebar-primary-foreground: #1a1310;
+  --sidebar-accent: #241c36;
+  --sidebar-accent-foreground: #efe9fb;
+  --sidebar-border: rgba(239, 233, 251, 0.1);
+  --sidebar-ring: #8b6cf2;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Type                                                                    */
+/* ---------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono-ui {
+  font-family: var(--font-mono-ui);
 }
 
 @layer base {
@@ -140,52 +214,166 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
   }
 }
 
-/*
- * Songcraft component classes.
- * These are plain custom classes (not Tailwind utilities), so they work
- * regardless of Tailwind version/config and don't depend on @utility support.
- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Ambient backdrop — two slow-drifting studio-light blobs behind the app  */
+/* ---------------------------------------------------------------------- */
+
+.bg-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-ambient::before,
+.bg-ambient::after {
+  content: "";
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.28;
+  will-change: transform;
+}
+.bg-ambient::before {
+  top: -20vmax;
+  right: -15vmax;
+  background: radial-gradient(circle, #8b6cf2 0%, transparent 70%);
+  animation: drift-a 26s ease-in-out infinite;
+}
+.bg-ambient::after {
+  bottom: -25vmax;
+  left: -15vmax;
+  background: radial-gradient(circle, #f2b354 0%, transparent 70%);
+  animation: drift-b 32s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-6%, 8%) scale(1.08);
+  }
+}
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8%, -6%) scale(1.1);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Songcraft component classes                                            */
+/* These are plain custom classes (not Tailwind utilities), so they work  */
+/* regardless of Tailwind version/config and don't depend on @utility.    */
+/* ---------------------------------------------------------------------- */
+
 .bg-brand-gradient {
-  background-image: linear-gradient(135deg, oklch(0.62 0.19 300) 0%, oklch(0.65 0.22 350) 100%);
+  background-image: linear-gradient(135deg, #f2b354 0%, #8b6cf2 100%);
+}
+.text-brand-gradient {
+  background-image: linear-gradient(135deg, #f2b354 0%, #8b6cf2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .card {
+  position: relative;
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-interactive:hover {
+  border-color: rgba(139, 108, 242, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px -12px rgba(139, 108, 242, 0.35);
 }
 
 .field {
   width: 100%;
   background-color: var(--color-secondary);
   border: 1px solid var(--color-border);
-  border-radius: calc(var(--radius-lg) - 4px);
-  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius-lg) - 6px);
+  padding: 0.6rem 0.8rem;
   font-size: 0.875rem;
   color: var(--color-foreground);
   outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.field::placeholder {
+  color: var(--color-muted-foreground);
 }
 .field:focus {
   border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(139, 108, 242, 0.18);
 }
 
 .btn-primary {
-  background-image: linear-gradient(135deg, oklch(0.62 0.19 300) 0%, oklch(0.65 0.22 350) 100%);
-  color: var(--color-primary-foreground);
+  position: relative;
+  background-image: linear-gradient(135deg, #f2b354 0%, #8b6cf2 100%);
+  color: #17111f;
   font-weight: 600;
   border-radius: 9999px;
-  padding: 0.65rem 1.25rem;
-  transition: opacity 0.15s ease;
+  padding: 0.7rem 1.35rem;
+  box-shadow: 0 6px 22px -8px rgba(242, 179, 84, 0.45);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
 }
 .btn-primary:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px -8px rgba(139, 108, 242, 0.55);
+}
+.btn-primary:active {
+  transform: translateY(0);
 }
 .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-ghost {
@@ -194,12 +382,120 @@
   color: var(--color-foreground);
   font-weight: 500;
   border-radius: 9999px;
-  padding: 0.6rem 1.25rem;
+  padding: 0.65rem 1.35rem;
   transition:
     background-color 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .btn-ghost:hover {
   background-color: var(--color-secondary);
   border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.pill {
+  border-radius: 9999px;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+.pill:hover {
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Equalizer mark — the app's signature element.                          */
+/* Bars idle in a gentle breathing loop; .eq-live speeds them up to read  */
+/* as "actively generating / playing".                                   */
+/* ---------------------------------------------------------------------- */
+
+.eq-mark {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 1em;
+}
+.eq-mark span {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background-image: linear-gradient(180deg, #f2b354 0%, #8b6cf2 100%);
+  animation: eq-bounce 1.6s ease-in-out infinite;
+}
+.eq-mark span:nth-child(1) {
+  height: 40%;
+  animation-delay: -1.1s;
+}
+.eq-mark span:nth-child(2) {
+  height: 100%;
+  animation-delay: -0.4s;
+}
+.eq-mark span:nth-child(3) {
+  height: 65%;
+  animation-delay: -0.9s;
+}
+.eq-mark span:nth-child(4) {
+  height: 80%;
+  animation-delay: -0.2s;
+}
+.eq-mark.eq-live span {
+  animation-duration: 0.7s;
+}
+.eq-mark.eq-idle span {
+  animation-play-state: paused;
+  opacity: 0.55;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Entrance + utility animations                                          */
+/* ---------------------------------------------------------------------- */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
 }

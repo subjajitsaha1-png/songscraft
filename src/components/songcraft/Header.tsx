@@ -1,4 +1,5 @@
-import { LogOut, Music2 } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { AppMark } from "./AppMark";
 
 export function Header({
   email,
@@ -8,12 +9,12 @@ export function Header({
   onSignOut: () => void;
 }) {
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-border">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-brand-gradient flex items-center justify-center">
-          <Music2 size={18} className="text-primary-foreground" />
+    <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-border">
+      <div className="flex items-center gap-2.5">
+        <div className="w-9 h-9 rounded-xl bg-secondary border border-border flex items-center justify-center">
+          <AppMark className="text-base" />
         </div>
-        <span className="font-bold text-lg tracking-tight">Songcraft</span>
+        <span className="font-display font-semibold text-lg tracking-tight">Songcraft</span>
       </div>
       {email && (
         <button

@@ -48,21 +48,27 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
   };
 
   return (
-    <div className="card p-5 flex flex-col gap-4">
-      <div className="flex items-center gap-2">
-        <Sparkles size={16} className="text-accent" />
-        <h2 className="font-semibold">Create a song</h2>
-      </div>
+    <div className="card card-interactive p-5 flex flex-col gap-4 animate-fade-in-up">
+      <span className="absolute left-0 top-5 bottom-5 w-[3px] rounded-full bg-brand-gradient" />
 
-      <div className="flex bg-secondary rounded-full p-1 text-sm w-fit">
+      <div className="flex items-center gap-2 pl-1">
+        <Sparkles size={16} className="text-primary" />
+        <p className="font-mono-ui text-[11px] tracking-[0.18em] uppercase text-muted-foreground">Create</p>
+      </div>
+      <h2 className="font-display font-semibold text-lg -mt-2 pl-1">Write your next track</h2>
+
+      <div className="flex bg-secondary rounded-full p-1 text-sm w-fit relative">
         {(["simple", "custom"] as const).map((m) => (
           <button
             key={m}
             onClick={() => setMode(m)}
-            className={`px-4 py-1.5 rounded-full transition-colors ${
-              mode === m ? "bg-brand-gradient text-primary-foreground" : "text-muted-foreground"
+            className={`relative z-10 px-4 py-1.5 rounded-full font-medium transition-colors duration-200 ${
+              mode === m ? "text-primary-foreground" : "text-muted-foreground"
             }`}
           >
+            {mode === m && (
+              <span className="absolute inset-0 -z-10 rounded-full bg-brand-gradient animate-scale-in" />
+            )}
             {m === "simple" ? "Simple" : "Custom lyrics"}
           </button>
         ))}
@@ -89,7 +95,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
           value={lyrics}
           onChange={(e) => setLyrics(e.target.value)}
           rows={6}
-          className="field resize-none font-mono"
+          className="field resize-none font-mono-ui animate-fade-in-up"
         />
       )}
 
@@ -98,7 +104,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
-            className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+            className={`pill text-xs px-3 py-1 border ${
               tags.includes(tag)
                 ? "bg-accent/20 border-accent text-foreground"
                 : "border-border text-muted-foreground hover:border-accent/50"
@@ -110,20 +116,21 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
       </div>
 
       <div className="flex items-center justify-between text-sm">
-        <label className="flex items-center gap-2 text-muted-foreground">
+        <label className="flex items-center gap-2 text-muted-foreground cursor-pointer">
           <input
             type="checkbox"
             checked={instrumental}
             onChange={(e) => setInstrumental(e.target.checked)}
+            className="accent-accent"
           />
           Instrumental only
         </label>
         <label className="flex items-center gap-2 text-muted-foreground">
-          Duration
+          <span className="font-mono-ui text-xs">Duration</span>
           <select
             value={duration}
             onChange={(e) => setDuration(Number(e.target.value))}
-            className="field px-2 py-1"
+            className="field w-auto px-2 py-1 font-mono-ui"
           >
             <option value={60}>1:00</option>
             <option value={120}>2:00</option>
@@ -140,7 +147,7 @@ export function CreatePanel({ onCreate }: { onCreate: (input: CreateSongInput) =
         disabled={submitting}
         className="btn-primary flex items-center justify-center gap-2"
       >
-        <Wand2 size={16} />
+        <Wand2 size={16} className={submitting ? "animate-spin-slow" : ""} />
         {submitting ? "Starting generation..." : "Create song"}
       </button>
     </div>
