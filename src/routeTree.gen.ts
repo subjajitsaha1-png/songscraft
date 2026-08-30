@@ -10,33 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicReplicateWebhookRouteImport } from './routes/api/public/replicate-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicReplicateWebhookRoute =
+  ApiPublicReplicateWebhookRouteImport.update({
+    id: '/api/public/replicate-webhook',
+    path: '/api/public/replicate-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/replicate-webhook': typeof ApiPublicReplicateWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/replicate-webhook': typeof ApiPublicReplicateWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/replicate-webhook': typeof ApiPublicReplicateWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/public/replicate-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/public/replicate-webhook'
+  id: '__root__' | '/' | '/api/public/replicate-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicReplicateWebhookRoute: typeof ApiPublicReplicateWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +59,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/replicate-webhook': {
+      id: '/api/public/replicate-webhook'
+      path: '/api/public/replicate-webhook'
+      fullPath: '/api/public/replicate-webhook'
+      preLoaderRoute: typeof ApiPublicReplicateWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicReplicateWebhookRoute: ApiPublicReplicateWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
